@@ -12,13 +12,13 @@ RSpec.describe LoansController, type: :controller do
     let(:loan) { Loan.create!(funded_amount: 100.0) }
 
     it 'responds with a 200' do
-      get :show, id: loan.id
+      get :show, params: { id: loan.id }
       expect(response).to have_http_status(:ok)
     end
 
     context 'if the loan is not found' do
       it 'responds with a 404' do
-        get :show, id: 10000
+        get :show, params: { id: 10000 }
         expect(response).to have_http_status(:not_found)
       end
     end
