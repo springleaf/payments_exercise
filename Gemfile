@@ -16,6 +16,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'pry'
+  gem 'bootsnap'
 end
 
 group :development do
