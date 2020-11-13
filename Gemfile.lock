@@ -169,5 +169,8 @@ DEPENDENCIES
   sqlite3
   websocket-extensions (>= 0.1.5)
 
+RUBY VERSION
+   ruby 2.6.2p47
+
 BUNDLED WITH
    2.1.4
