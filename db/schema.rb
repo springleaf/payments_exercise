@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_30_135758) do
+ActiveRecord::Schema.define(version: 2022_03_30_164643) do
 
   create_table "loans", force: :cascade do |t|
     t.decimal "funded_amount", precision: 8, scale: 2
@@ -18,11 +18,7 @@ ActiveRecord::Schema.define(version: 2022_03_30_135758) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.date "date"
-    t.decimal "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "payments" because of following StandardError
+#   Unknown type 'reference' for column 'loan'
 
 end
