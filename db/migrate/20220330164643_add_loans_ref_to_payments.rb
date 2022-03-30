@@ -1,5 +1,5 @@
-class AddLoansRefToPayments < ActiveRecord::Migration[5.2]
+class ChangeLoanRefToPayments < ActiveRecord::Migration[5.2]
   def change
-    add_column :payments, :loan, :reference
+    add_reference :payments, :loan
   end
 end
