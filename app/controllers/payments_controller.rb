@@ -1,15 +1,10 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: %i[ show update destroy ]
-
-  # GET /payments
-  # GET /payments.json
-  def index
-    @payments = Payment.all
-  end
+  before_action :set_payment, only: %i[ show ]
 
   # GET /payments/1
   # GET /payments/1.json
   def show
+    render json: @payment
   end
 
   # POST /payments
@@ -17,27 +12,16 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
 
-    if @payment.save
-      render :show, status: :created, location: @payment
-    else
+    begin
+      ActiveRecord::Base.transaction do
+        @payment.save!
+        Loan.where(id: @payment.loan_id).update_all(['total_payments = COALESCE(total_payments, 0) + ?', @payment.amount])
+      end
+    rescue StandardError
       render json: @payment.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /payments/1
-  # PATCH/PUT /payments/1.json
-  def update
-    if @payment.update(payment_params)
-      render :show, status: :ok, location: @payment
     else
-      render json: @payment.errors, status: :unprocessable_entity
+      render json: @payment, status: :created
     end
-  end
-
-  # DELETE /payments/1
-  # DELETE /payments/1.json
-  def destroy
-    @payment.destroy
   end
 
   private
@@ -48,6 +32,8 @@ class PaymentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_params
-      params.require(:payment).permit(:date, :amount)
+      params.require(:payment).permit(:amount, :loan_id).tap do |p|
+        p[:date] = Time.current
+      end
     end
 end
