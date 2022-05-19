@@ -1,0 +1,1 @@
+json.loan(loan, :id, :funded_amount, :outstanding_payment)
