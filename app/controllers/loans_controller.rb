@@ -5,7 +5,7 @@ class LoansController < ActionController::API
   end
 
   def index
-    render json: Loan.all
+    render json: Loan.all_balance
   end
 
   def show
