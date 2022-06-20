@@ -7,7 +7,7 @@ class Loan < ActiveRecord::Base
 
 	def outstanding_balance
 		return funded_amount if payments.empty?
-		funded_amount - payments.inject(0) {|ag,payments| ag + (payments&.amount || 0)}
+		funded_amount - payments.persisted.inject(0) {|ag,payments| ag + (payments&.amount || 0)}
 	end
 
 	def to_h

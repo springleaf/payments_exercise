@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_19_041027) do
+ActiveRecord::Schema.define(version: 2022_06_19_040730) do
 
   create_table "loans", force: :cascade do |t|
     t.decimal "funded_amount", precision: 8, scale: 2
