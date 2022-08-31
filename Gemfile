@@ -27,6 +27,7 @@ group :development, :test do
   gem 'bootsnap'
   gem 'factory_bot'
   gem 'faker'
+  gem 'shoulda-matchers'
 end
 
 group :development do
