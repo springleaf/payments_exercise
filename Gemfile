@@ -9,7 +9,6 @@ gem 'sqlite3'
 
 gem 'actionview'
 gem 'sprockets', '~>3.0'
-gem 'money-rails'
 
 gem 'mimemagic', '~> 0.3.10'
 gem "websocket-extensions", ">= 0.1.5"
