@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'actionview'
 gem 'sprockets', '~>3.0'
 
+gem 'mimemagic', '~> 0.3.10'
 gem "websocket-extensions", ">= 0.1.5"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -23,6 +24,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'bootsnap'
+  gem 'factory_bot'
+  gem 'faker'
+  gem 'shoulda-matchers'
 end
 
 group :development do
