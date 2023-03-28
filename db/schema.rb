@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903195334) do
+ActiveRecord::Schema.define(version: 2022_06_19_040730) do
 
   create_table "loans", force: :cascade do |t|
     t.decimal "funded_amount", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount"
+    t.datetime "payment_date"
+    t.integer "loan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loan_id"], name: "index_payments_on_loan_id"
   end
 
 end

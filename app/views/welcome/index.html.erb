@@ -1,0 +1,17 @@
+<h1>New Article</h1>
+
+<%= form_with model: @payment do |form| %>
+  <div>
+    <%= form.label :amount %><br>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div>
+    <%= form.label :loan_id %><br>
+    <%= form.text_area :loan_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
