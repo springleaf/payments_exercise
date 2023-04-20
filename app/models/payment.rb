@@ -1,4 +1,4 @@
-class Payment < ActiveRecord::Base
+class Payment < ApplicationRecord
   belongs_to :loan
   validates :amount, :payment_date, presence: true
   validate :amount_does_not_exceed_outstanding_balance

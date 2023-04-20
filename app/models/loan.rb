@@ -1,4 +1,4 @@
-class Loan < ActiveRecord::Base
+class Loan < ApplicationRecord
   has_many :payments
   validates :funded_amount, presence: true
 
