@@ -4,15 +4,13 @@ RSpec.describe PaymentsController, type: :controller do
   let(:loan) {create(:loan)}
   describe '#index' do
     let!(:payments) { 3.times { create(:payment, loan: loan)} }
+    let!(:payment_for_different_loan) { create(:payment) }
+    before(:each) { get :index, params: { loan_id: loan.id } }
     it 'responds with a 200' do
-      get :index, params: { loan_id: loan.id }
-
       expect(response).to have_http_status(:ok)
     end
 
     it "has the correct count of payments" do
-      get :index, params: { loan_id: loan.id }
-
       expect(json.count).to eq(3)
     end
 
@@ -52,23 +50,18 @@ RSpec.describe PaymentsController, type: :controller do
         }
       }
     end
+    before(:each) { post_create(loan) }
     it 'responds with a 201' do
-      post_create(loan)
-
       expect(response).to have_http_status(:created)
     end
 
     context "when a payment can't be create" do
       let(:loan) { create(:loan, funded_amount: 200.0) }
       it "responds with a 422" do
-        post_create(loan)
-
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it "show the correct errors" do
-        post_create(loan)
-
         expect(json['errors']).to include("Amount can't exceed outstanding balance")
       end
 

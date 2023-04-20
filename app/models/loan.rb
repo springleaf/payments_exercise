@@ -11,10 +11,8 @@ class Loan < ApplicationRecord
   end
 
   def as_json(options = {})
-    super()
-      .merge(options)
-      .merge({
-        outstanding_balance: self.outstanding_balance 
-      })
+    super(options).merge({
+      outstanding_balance: outstanding_balance 
+    })
   end
 end
