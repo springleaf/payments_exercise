@@ -23,6 +23,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'bootsnap'
+  gem 'annotate'
 end
 
 group :development do
