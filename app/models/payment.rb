@@ -16,4 +16,14 @@
 class Payment < ActiveRecord::Base
   belongs_to :loan
   validates :payment_date, :amount, presence: true
+
+  validate :payment_amount_valid
+
+  def payment_amount_valid
+    return unless amount.present?
+
+    if amount > loan.outstanding_balance
+      errors.add(:amount, "cannot exceed the outstanding balance.")
+    end
+  end
 end

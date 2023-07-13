@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
     payment = loan.payments.build(payment_params)
 
     if payment.save
-      render json: payment
+      render json: { success: 'Successfully created payments amount for a given loan.' }
     else
       render json: { errors: payment.errors.full_messages }, status: :unprocessable_entity
     end
@@ -13,6 +13,6 @@ class PaymentsController < ApplicationController
   private
 
   def payment_params
-    params.permit(:payments => [:payment_date, :amount])
+    params.require(:payment).permit(:payment_date, :amount)
   end
 end
