@@ -9,9 +9,8 @@ RSpec.describe LoansController, type: :controller do
   end
 
   describe '#show' do
-    let(:loan) { Loan.create!(funded_amount: 100.0) }
-
     it 'responds with a 200' do
+      loan = FactoryBot.create(:loan, funded_amount: 100.0)
       get :show, params: { id: loan.id }
       expect(response).to have_http_status(:ok)
     end
