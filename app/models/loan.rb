@@ -10,4 +10,8 @@
 class Loan < ActiveRecord::Base
   has_many :payments, dependent: :destroy
   validates_presence_of :funded_amount
+
+  def outstanding_balance
+    funded_amount - payments.sum(:amount)
+  end
 end
