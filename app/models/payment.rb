@@ -8,8 +8,8 @@ class Payment < ActiveRecord::Base
   private
 
   def amount_does_not_exceed_outstanding_balance
-    # Use the loan's outstanding_balance (funded_amount minus sum of payments)
-    if loan && amount && amount > loan.outstanding_balance
+    existing_total = loan.payments.where.not(id: self.id).sum(:amount)
+    if loan && amount && (existing_total + amount > loan.funded_amount)
       errors.add(:amount, "exceeds the outstanding balance of the loan")
     end
   end

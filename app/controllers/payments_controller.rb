@@ -2,7 +2,7 @@ class PaymentsController < ActionController::API
   before_action :set_loan
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: 'not_found', status: :not_found
+    render json: { error: 'not_found' }, status: :not_found
   end
 
   def index
