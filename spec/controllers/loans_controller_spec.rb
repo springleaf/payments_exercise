@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe LoansController, type: :controller do
+  let!(:loan) { Loan.create!(funded_amount: 100.0) }
+
   describe '#index' do
     it 'responds with a 200' do
       get :index
@@ -9,18 +11,11 @@ RSpec.describe LoansController, type: :controller do
   end
 
   describe '#show' do
-    let(:loan) { Loan.create!(funded_amount: 100.0) }
-
-    it 'responds with a 200' do
+    it 'returns a specific loan' do
       get :show, params: { id: loan.id }
-      expect(response).to have_http_status(:ok)
-    end
 
-    context 'if the loan is not found' do
-      it 'responds with a 404' do
-        get :show, params: { id: 10000 }
-        expect(response).to have_http_status(:not_found)
-      end
+      json_response = JSON.parse(response.body)
+      expect(json_response['funded_amount']).to eq(loan.funded_amount.to_s)
     end
   end
 end

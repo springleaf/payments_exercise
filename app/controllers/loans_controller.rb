@@ -1,14 +1,19 @@
-class LoansController < ActionController::API
-
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: 'not_found', status: :not_found
-  end
+class LoansController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def index
-    render json: Loan.all
+    loans = Loan.all
+    render json: loans.as_json(methods: :outstanding_balance, include: :payments)
   end
 
   def show
-    render json: Loan.find(params[:id])
+    loan = Loan.find(params[:id])
+    render json: loan.as_json(methods: :outstanding_balance, include: :payments)
+  end
+
+  private
+
+  def not_found(exception)
+    render json: { error: "Not Found" }, status: :not_found
   end
 end
